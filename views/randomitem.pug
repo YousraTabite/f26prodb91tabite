@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+
+  -
+    let image_names = [
+      "waterfall1.jfif",
+      "waterfall2.jfif",
+      "waterfall3.jfif",
+      "waterfall4.jfif",
+      "waterfall5.jfif"
+    ];
+
+  - for (let i = 0; i < 3; i++) {
+    - let pick = Math.floor(Math.random() * 5);
+    img(src="/images/" + image_names[pick], alt="Waterfall photo " + (pick + 1), width="300", height="300", style="object-fit: cover; margin: 5px;")
+  - }
