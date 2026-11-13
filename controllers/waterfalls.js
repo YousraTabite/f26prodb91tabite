@@ -29,3 +29,15 @@ exports.waterfall_delete = function(req, res) {
 exports.waterfall_update_put = function(req, res) {
   res.send('NOT IMPLEMENTED: Update waterfall for ' + req.params.id);
 };
+// Display waterfalls on a webpage.
+exports.waterfall_view_all_Page = async function(req, res, next) {
+  try {
+    var results = await Waterfall.find({});
+    res.render('waterfalls', {
+      title: 'Waterfalls',
+      results: results
+    });
+  } catch (error) {
+    next(error);
+  }
+};
