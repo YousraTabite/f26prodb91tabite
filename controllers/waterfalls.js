@@ -1,6 +1,13 @@
-// List all waterfalls.
-exports.waterfall_list = function(req, res) {
-  res.send('NOT IMPLEMENTED: List all waterfalls');
+var Waterfall = require('../models/waterfall');
+
+// List all waterfalls from MongoDB.
+exports.waterfall_list = async function(req, res) {
+  try {
+    var results = await Waterfall.find({});
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // Get one waterfall.
