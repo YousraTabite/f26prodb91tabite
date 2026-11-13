@@ -16,8 +16,20 @@ exports.waterfall_detail = function(req, res) {
 };
 
 // Create a waterfall.
-exports.waterfall_create_post = function(req, res) {
-  res.send('NOT IMPLEMENTED: Create waterfall');
+// Create and save a waterfall.
+exports.waterfall_create_post = async function(req, res) {
+  try {
+    var waterfall = new Waterfall({
+      name: req.body.name,
+      country: req.body.country,
+      height: req.body.height
+    });
+
+    var result = await waterfall.save();
+    res.status(201).json(result);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 // Delete a waterfall.
