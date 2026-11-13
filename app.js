@@ -3,6 +3,19 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('dotenv').config();
+
+var mongoose = require('mongoose');
+
+var Waterfall = require('./models/waterfall');
+
+mongoose.connect(process.env.MONGO_CON)
+  .then(function() {
+    console.log('Connected to MongoDB Atlas');
+  })
+  .catch(function(error) {
+    console.error('MongoDB connection error:', error.message);
+  });
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
