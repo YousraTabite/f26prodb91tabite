@@ -10,11 +10,24 @@ exports.waterfall_list = async function(req, res) {
   }
 };
 
-// Get one waterfall.
-exports.waterfall_detail = function(req, res) {
-  res.send('NOT IMPLEMENTED: Waterfall detail for ' + req.params.id);
-};
+// Get one waterfall by its ID.
+exports.waterfall_detail = async function(req, res) {
+  try {
+    var result = await Waterfall.findById(req.params.id);
 
+    if (!result) {
+      return res.status(404).json({
+        error: 'Waterfall not found'
+      });
+    }
+
+    res.json(result);
+  } catch (error) {
+    res.status(400).json({
+      error: 'Unable to retrieve waterfall. Check the ID.'
+    });
+  }
+};
 // Create a waterfall.
 // Create and save a waterfall.
 exports.waterfall_create_post = async function(req, res) {
