@@ -22,6 +22,7 @@ var usersRouter = require('./routes/users');
 var waterfallsRouter = require('./routes/waterfalls');
 var gridRouter = require('./routes/grid');
 var pickRouter = require('./routes/pick');
+var resourceRouter = require('./routes/resource');
 
 var app = express();
 
@@ -40,7 +41,7 @@ app.use('/users', usersRouter);
 app.use('/waterfalls', waterfallsRouter);
 app.use('/grid', gridRouter);
 app.use('/selector', pickRouter);
-
+app.use('/resource', resourceRouter);
 
 
 
