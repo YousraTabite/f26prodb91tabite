@@ -8,6 +8,7 @@ router.get('/', waterfallController.waterfall_view_all_Page);
 router.get('/detail', waterfallController.waterfall_detail_Page);
 router.get('/create', waterfallController.waterfall_create_Page);
 router.get('/update', waterfallController.waterfall_update_Page);
+router.get('/delete', waterfallController.waterfall_delete_Page);
 module.exports = router;
 
 

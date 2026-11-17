@@ -156,3 +156,16 @@ exports.waterfall_update_Page = async function(req, res, next) {
     next(error);
   }
 };
+// Display the page for deleting one waterfall.
+exports.waterfall_delete_Page = async function(req, res, next) {
+  try {
+    var result = await Waterfall.findById(req.query.id);
+
+    res.render('waterfalldelete', {
+      title: 'Delete Waterfall',
+      waterfall: result
+    });
+  } catch (error) {
+    next(error);
+  }
+};

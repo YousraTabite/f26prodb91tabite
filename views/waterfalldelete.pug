@@ -1,0 +1,59 @@
+extends layout
+
+block content
+  h1= title
+
+  if waterfall
+    p Are you sure you want to delete this waterfall?
+
+    div
+      span.waterfall-label ID
+      span= waterfall._id
+
+    div
+      span.waterfall-label Name
+      span= waterfall.name
+
+    div
+      span.waterfall-label Country
+      span= waterfall.country
+
+    div
+      span.waterfall-label Height
+      span #{waterfall.height} meters
+
+    button#deleteButton.btn.btn-danger(
+      type='button',
+      data-id=waterfall._id
+    ) Delete
+    button.btn.btn-secondary(
+      type='button',
+      onclick="window.location.href='/waterfalls'"
+    ) Cancel
+
+    script.
+      document.getElementById('deleteButton').addEventListener('click', async function() {
+        var button = this;
+        button.disabled = true;
+
+        try {
+          var response = await fetch('/resource/waterfalls/' + button.dataset.id, {
+            method: 'DELETE'
+          });
+
+          var result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.error || 'Unable to delete waterfall.');
+          }
+
+          alert('Waterfall deleted successfully.');
+          window.location.href = '/waterfalls';
+        } catch (error) {
+          alert(error.message);
+          button.disabled = false;
+        }
+      });
+  else
+    p Waterfall not found.
+    a(href='/waterfalls') Back to waterfalls
