@@ -1,54 +1,64 @@
 extends layout
 
 block content
-  h1= title
+  main.waterfall-editor
+    if waterfall
+      section.waterfall-card
+        p.waterfall-eyebrow WATERFALL COLLECTION
+        h1= title
+        p.waterfall-intro Edit the details below and save your changes.
 
-  p
-    span.waterfall-label ID
-    span= waterfall._id
+        p.waterfall-record
+          strong Record ID
+          span= waterfall._id
 
-  form#updateForm(action='/resource/waterfalls/' + waterfall._id)
-    div
-      label.waterfall-label(for='name') Name
-      input#name(type='text', name='name', value=waterfall.name, required)
+        form#updateForm(action='/resource/waterfalls/' + waterfall._id)
+          div.waterfall-field
+            label(for='name') Name
+            input#name(type='text', name='name', value=waterfall.name, required)
 
-    div
-      label.waterfall-label(for='country') Country
-      input#country(type='text', name='country', value=waterfall.country, required)
+          div.waterfall-field
+            label(for='country') Country
+            input#country(type='text', name='country', value=waterfall.country, required)
 
-    div
-      label.waterfall-label(for='height') Height (meters)
-      input#height(type='number', name='height', value=waterfall.height, step='any', required)
+          div.waterfall-field
+            label(for='height') Height (meters)
+            input#height(type='number', name='height', value=waterfall.height, step='any', required)
 
-    button.btn.btn-primary(type='submit') Update
+          div.waterfall-actions
+            button.waterfall-save(type='submit') Save changes
+            a.waterfall-cancel(href='/waterfalls') Cancel
 
-  p
-    a(href='/waterfalls') Back to waterfalls
+      script.
+        document.getElementById('updateForm').addEventListener('submit', async function(event) {
+          event.preventDefault();
 
-  script.
-    document.getElementById('updateForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
+          var form = event.currentTarget;
+          var button = form.querySelector('button[type="submit"]');
+          button.disabled = true;
 
-      var form = event.currentTarget;
-      var button = form.querySelector('button[type="submit"]');
-      button.disabled = true;
+          try {
+            var response = await fetch(form.action, {
+              method: 'PUT',
+              body: new URLSearchParams(new FormData(form))
+            });
 
-      try {
-        var response = await fetch(form.action, {
-          method: 'PUT',
-          body: new URLSearchParams(new FormData(form))
+            var result = await response.json();
+
+            if (!response.ok) {
+              throw new Error(result.error || 'Unable to update waterfall.');
+            }
+
+            alert('Waterfall updated successfully.');
+          } catch (error) {
+            alert(error.message);
+          } finally {
+            button.disabled = false;
+          }
         });
-
-        var result = await response.json();
-
-        if (!response.ok) {
-          throw new Error(result.error || 'Unable to update waterfall.');
-        }
-
-        alert('Waterfall updated successfully.');
-      } catch (error) {
-        alert(error.message);
-      } finally {
-        button.disabled = false;
-      }
-    });
+    else
+      section.waterfall-card
+        p.waterfall-eyebrow WATERFALL COLLECTION
+        h1 Waterfall not found
+        p.waterfall-intro This waterfall may have been deleted. Return to the collection to select another.
+        a.waterfall-cancel(href='/waterfalls') Back to waterfalls

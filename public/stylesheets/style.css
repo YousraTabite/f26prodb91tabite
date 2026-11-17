@@ -13,3 +13,112 @@ a {
   margin-bottom: 12px;
   font-weight: bold;
 }
+.waterfall-editor {
+  max-width: 620px;
+  margin: 30px auto;
+}
+
+.waterfall-card {
+  padding: 36px;
+  background: #f4f9f8;
+  border: 1px solid #d8e6e2;
+  border-top: 6px solid #176b5b;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(23, 67, 58, 0.1);
+}
+
+.waterfall-eyebrow {
+  margin: 0 0 12px;
+  color: #176b5b;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.waterfall-card h1 {
+  margin: 0 0 12px;
+  color: #183e35;
+}
+
+.waterfall-intro {
+  margin-bottom: 24px;
+  color: #485f58;
+  line-height: 1.6;
+}
+
+.waterfall-record {
+  padding: 12px;
+  background: #e5efeb;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+
+.waterfall-record strong,
+.waterfall-record span {
+  display: block;
+}
+
+.waterfall-record span {
+  margin-top: 6px;
+}
+
+.waterfall-field {
+  margin-bottom: 20px;
+}
+
+.waterfall-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #183e35;
+}
+
+.waterfall-field input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #93aaa2;
+  border-radius: 8px;
+  background: white;
+  color: #172e27;
+  font: inherit;
+}
+
+.waterfall-field input:focus {
+  outline: 3px solid #b8ded3;
+  border-color: #176b5b;
+}
+
+.waterfall-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.waterfall-save {
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 8px;
+  background: #176b5b;
+  color: white;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.waterfall-save:hover {
+  background: #105143;
+}
+
+.waterfall-save:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.waterfall-cancel {
+  color: #176b5b;
+  font-weight: bold;
+  text-decoration: underline;
+}

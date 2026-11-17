@@ -115,14 +115,7 @@ exports.waterfall_detail_Page = async function(req, res, next) {
   try {
     var result = await Waterfall.findById(req.query.id);
 
-    if (!result) {
-      return res.status(404).render('error', {
-        message: 'Waterfall not found',
-        error: {}
-      });
-    }
-
-    res.render('waterfalldetail', {
+    res.status(result ? 200 : 404).render('waterfalldetail', {
       title: 'Waterfall Details',
       waterfall: result
     });
@@ -141,14 +134,7 @@ exports.waterfall_update_Page = async function(req, res, next) {
   try {
     var result = await Waterfall.findById(req.query.id);
 
-    if (!result) {
-      return res.status(404).render('error', {
-        message: 'Waterfall not found',
-        error: {}
-      });
-    }
-
-    res.render('waterfallupdate', {
+    res.status(result ? 200 : 404).render('waterfallupdate', {
       title: 'Update Waterfall',
       waterfall: result
     });
