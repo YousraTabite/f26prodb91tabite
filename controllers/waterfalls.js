@@ -46,8 +46,23 @@ exports.waterfall_create_post = async function(req, res) {
 };
 
 // Delete a waterfall.
-exports.waterfall_delete = function(req, res) {
-  res.send('NOT IMPLEMENTED: Delete waterfall for ' + req.params.id);
+// Delete one waterfall by its ID.
+exports.waterfall_delete = async function(req, res) {
+  try {
+    var result = await Waterfall.findByIdAndDelete(req.params.id);
+
+    if (!result) {
+      return res.status(404).json({
+        error: 'Waterfall not found'
+      });
+    }
+
+    res.json(result);
+  } catch (error) {
+    res.status(400).json({
+      error: 'Unable to delete waterfall. Check the ID.'
+    });
+  }
 };
 
 // Update a waterfall.
