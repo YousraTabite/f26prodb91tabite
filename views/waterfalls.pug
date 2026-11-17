@@ -10,6 +10,10 @@ block content
           p Name: #{item.name}
           p Country: #{item.country}
           p Height: #{item.height} meters
+          a.btn.btn-primary(
+            href='/waterfalls/update?id=' + item._id,
+            onclick='event.stopPropagation()'
+          ) Update
 
   script.
     function buy(index) {
