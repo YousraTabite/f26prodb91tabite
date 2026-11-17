@@ -6,3 +6,10 @@ body {
 a {
   color: #00B7FF;
 }
+.waterfall-label {
+  display: inline-block;
+  min-width: 90px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  font-weight: bold;
+}

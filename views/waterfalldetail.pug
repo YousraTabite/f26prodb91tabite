@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1= title
+
+  div
+    span.waterfall-label ID
+    span= waterfall._id
+
+  div
+    span.waterfall-label Name
+    span= waterfall.name
+
+  div
+    span.waterfall-label Country
+    span= waterfall.country
+
+  div
+    span.waterfall-label Height
+    span #{waterfall.height} meters
+
+  a(href='/waterfalls') Back to waterfalls

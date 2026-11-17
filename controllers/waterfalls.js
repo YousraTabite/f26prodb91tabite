@@ -109,3 +109,24 @@ exports.waterfall_view_all_Page = async function(req, res, next) {
     next(error);
   }
 };
+
+// Display the details of one waterfall.
+exports.waterfall_detail_Page = async function(req, res, next) {
+  try {
+    var result = await Waterfall.findById(req.query.id);
+
+    if (!result) {
+      return res.status(404).render('error', {
+        message: 'Waterfall not found',
+        error: {}
+      });
+    }
+
+    res.render('waterfalldetail', {
+      title: 'Waterfall Details',
+      waterfall: result
+    });
+  } catch (error) {
+    next(error);
+  }
+};
