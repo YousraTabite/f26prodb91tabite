@@ -130,3 +130,9 @@ exports.waterfall_detail_Page = async function(req, res, next) {
     next(error);
   }
 };
+// Display the form for creating a waterfall.
+exports.waterfall_create_Page = function(req, res) {
+  res.render('waterfallcreate', {
+    title: 'Create Waterfall'
+  });
+};

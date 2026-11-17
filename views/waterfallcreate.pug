@@ -1,0 +1,50 @@
+extends layout
+
+block content
+  h1= title
+
+  form#createForm(action='/resource/waterfalls', method='POST')
+    div
+      label.waterfall-label(for='name') Name
+      input#name(type='text', name='name', required)
+
+    div
+      label.waterfall-label(for='country') Country
+      input#country(type='text', name='country', required)
+
+    div
+      label.waterfall-label(for='height') Height (meters)
+      input#height(type='number', name='height', step='any', required)
+
+    button.btn.btn-primary(type='submit') Create
+
+  p
+    a(href='/waterfalls') Back to waterfalls
+
+  script.
+    document.getElementById('createForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      var form = event.currentTarget;
+      var button = form.querySelector('button[type="submit"]');
+      button.disabled = true;
+
+      try {
+        var response = await fetch(form.action, {
+          method: form.method,
+          body: new URLSearchParams(new FormData(form))
+        });
+
+        var result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Unable to create waterfall.');
+        }
+
+        alert('Waterfall created successfully. ID: ' + result._id);
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        button.disabled = false;
+      }
+    });
