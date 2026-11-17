@@ -136,3 +136,23 @@ exports.waterfall_create_Page = function(req, res) {
     title: 'Create Waterfall'
   });
 };
+// Display the form for updating one waterfall.
+exports.waterfall_update_Page = async function(req, res, next) {
+  try {
+    var result = await Waterfall.findById(req.query.id);
+
+    if (!result) {
+      return res.status(404).render('error', {
+        message: 'Waterfall not found',
+        error: {}
+      });
+    }
+
+    res.render('waterfallupdate', {
+      title: 'Update Waterfall',
+      waterfall: result
+    });
+  } catch (error) {
+    next(error);
+  }
+};

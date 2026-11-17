@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  h1= title
+
+  p
+    span.waterfall-label ID
+    span= waterfall._id
+
+  form#updateForm(action='/resource/waterfalls/' + waterfall._id)
+    div
+      label.waterfall-label(for='name') Name
+      input#name(type='text', name='name', value=waterfall.name, required)
+
+    div
+      label.waterfall-label(for='country') Country
+      input#country(type='text', name='country', value=waterfall.country, required)
+
+    div
+      label.waterfall-label(for='height') Height (meters)
+      input#height(type='number', name='height', value=waterfall.height, step='any', required)
+
+    button.btn.btn-primary(type='submit') Update
+
+  p
+    a(href='/waterfalls') Back to waterfalls
+
+  script.
+    document.getElementById('updateForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      var form = event.currentTarget;
+      var button = form.querySelector('button[type="submit"]');
+      button.disabled = true;
+
+      try {
+        var response = await fetch(form.action, {
+          method: 'PUT',
+          body: new URLSearchParams(new FormData(form))
+        });
+
+        var result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Unable to update waterfall.');
+        }
+
+        alert('Waterfall updated successfully.');
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        button.disabled = false;
+      }
+    });
