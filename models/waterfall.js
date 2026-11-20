@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 
 var waterfallSchema = new mongoose.Schema({
-  name: String,
+  name: {
+  type: String,
+  minlength: 3,
+  maxlength: 100
+},
   country: String,
   height: {
   type: Number,
