@@ -3,6 +3,9 @@ extends layout
 block content
   h1= title
 
+  p
+    a.btn.btn-success(href='/waterfalls/create') Create Waterfall
+
   div(class="container-fluid")
     div(class="row")
       each item, index in results
@@ -10,10 +13,21 @@ block content
           p Name: #{item.name}
           p Country: #{item.country}
           p Height: #{item.height} meters
+
+          a.btn.btn-info(
+            href='/waterfalls/detail?id=' + item._id,
+            onclick='event.stopPropagation()'
+          ) Detail
+          | 
           a.btn.btn-primary(
             href='/waterfalls/update?id=' + item._id,
             onclick='event.stopPropagation()'
           ) Update
+          | 
+          a.btn.btn-danger(
+            href='/waterfalls/delete?id=' + item._id,
+            onclick='event.stopPropagation()'
+          ) Delete
 
   script.
     function buy(index) {
